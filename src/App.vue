@@ -2,11 +2,18 @@
   <header class="text-center my-4">
     <h1>Yu-Gi-Oh API</h1>
   </header>
-  <main class="bg-or">
-    <div class="container py-5 d-flex flex-column align-items-center">
-      <SelectionComp @search-archetype="setParameters" />
-      <div class="row">
-        <CardList />
+  <main>
+    <div class="d-flex flex-column align-items-center">
+      <div v-if="store.error" class="bg-danger-subtle d-flex justify-content-center border rounded-2 border-danger-subtle p-3 ">
+        {{ store.error }}
+      </div>
+      <div v-else class="bg-or w-100">
+        <div class="container w-100 py-5 d-flex flex-column align-items-center">
+          <SelectionComp @search-archetype="setParameters" />
+          <div class="row">
+            <CardList />
+          </div>
+        </div>
       </div>
     </div>
   </main>
@@ -31,6 +38,7 @@ export default {
       if (search) {
         this.find = search
         this.getCards();
+        console.log(search)
       }
       else {
         this.find = null
@@ -63,7 +71,10 @@ export default {
             name: archetypes[i].archetype_name
           })
         }
-      });
+      }).catch((error) => {
+        this.store.error = error.message
+        console.log(error)
+      })
   }
 }
 
