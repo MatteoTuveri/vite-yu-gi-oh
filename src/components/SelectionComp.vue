@@ -1,6 +1,6 @@
 <template>
-    <select class="form-select my-5" aria-label="Default select example" v-model="search" @change="$event =>$emit('searchArchetype',search)">
-        <option selected value=" ">Open this select menu</option>
+    <select class="form-select my-5" aria-label="Default select example" v-model="search" @change="searchArchetype">
+        <option selected value="">Open this select menu</option>
         <option v-for="(item,index) in store.searchList" :value="item.name">{{ item.name }}</option>
     </select>
 </template>
@@ -12,9 +12,14 @@ export default {
     data() {
         return {
             store,
-            search:' '
+            search:''
         }
     },
+    methods:{
+        searchArchetype(){
+            this.$emit('searchArchetype',this.search)
+        }
+    }
 
 }
 </script>

@@ -27,31 +27,43 @@ export default {
   },
   components: { CardList, SelectionComp },
   methods: {
-    setParameters(search){
-      this.find = search
-      this.getCards();
+    setParameters(search) {
+      if (search) {
+        this.find = search
+        this.getCards();
+      }
+      else {
+        this.find = null
+      }
     },
     getCards() {
       const url = store.apiUrl + store.endPoint;
-      axios.get(url, { params:{ archetype: this.find}}).then((response) => {
+      axios.get(url, { params: { archetype: this.find } }).then((response) => {
         const cards = response.data.data
         store.cardList = cards;
       })
     },
-    getArchetypes (){
-      axios.get(store.archetypes).then((resp) =>{
-        for (let i = 0; i < resp.data.length; i++) {
-          store.searchList.push({
-            name: resp.data[i].archetype_name
-          })
-        }
-      })
-    }
   },
   created() {
-    this.setParameters();
-    this.getCards();
-    this.getArchetypes();
+    function getCards() {
+      return axios.get(store.apiUrl + store.endPoint);
+    }
+
+    function getArchetypes() {
+      return axios.get(store.archetypes);
+    }
+
+    Promise.all([getCards(), getArchetypes()])
+      .then(function (results) {
+        const cards = results[0].data.data;
+        store.cardList = cards;
+        const archetypes = results[1].data;
+        for (let i = 0; i < archetypes.length; i++) {
+          store.searchList.push({
+            name: archetypes[i].archetype_name
+          })
+        }
+      });
   }
 }
 
