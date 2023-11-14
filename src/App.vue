@@ -3,8 +3,9 @@
     <h1>Yu-Gi-Oh API</h1>
   </header>
   <main>
-    <div class="d-flex flex-column align-items-center">
-      <div v-if="store.error" class="bg-danger-subtle d-flex justify-content-center border rounded-2 border-danger-subtle p-3 ">
+    <div class="d-flex flex-column container">
+      <LoadingPage v-if="store.loading" />
+      <div v-else-if="store.error" class="bg-danger-subtle d-flex justify-content-center border rounded-2 border-danger-subtle p-3 ">
         {{ store.error }}
       </div>
       <div v-else class="bg-or w-100">
@@ -23,6 +24,7 @@ import { store } from './data/store.js';
 import axios from 'axios';
 import CardList from './components/CardList.vue';
 import SelectionComp from './components/SelectionComp.vue';
+import LoadingPage from './components/LoadingPage.vue';
 
 export default {
   name: 'App',
@@ -32,7 +34,7 @@ export default {
       find: null
     }
   },
-  components: { CardList, SelectionComp },
+  components: { CardList, SelectionComp, LoadingPage },
   methods: {
     setParameters(search) {
       if (search) {
@@ -74,7 +76,9 @@ export default {
       }).catch((error) => {
         this.store.error = error.message
         console.log(error)
-      })
+      }).finally(()=>{
+        store.loading = false
+      });
   }
 }
 
