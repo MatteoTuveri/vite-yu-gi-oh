@@ -1,29 +1,9 @@
-# .
 
-This template should help get you started developing with Vue 3 in Vite.
+# Consegna dell'esercizio
 
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
+## Descrizione
+Creare un nuovo progetto utilizzando Vite e Vue 3 e definite i componenti necessari per strutturare il layout. Al caricamento della pagina, effettuare una chiamata ajax all'API di Yu Gi Oh scritta di seguito e con i dati restituiti, stampate una card per ogni carta.
 
 ```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
+https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=0
 ```
