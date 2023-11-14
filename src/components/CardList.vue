@@ -1,6 +1,6 @@
 <template>
     <div class="col-12 col-md-4 col-lg-3" v-for="(item, index) in store.cardList" :key="item.id">
-        <CardComponent :card-image="item.image" :card-title="item.name" :card-text="item.type" />
+        <CardComponent :card-image="item.card_images[0].image_url" :card-title="item.name" :card-text="item.archetype" />
     </div>
 </template>
 
