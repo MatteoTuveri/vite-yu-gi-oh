@@ -39,12 +39,11 @@ export default {
     setParameters(search) {
       if (search) {
         this.find = search
-        this.getCards();
-        console.log(search)
       }
       else {
         this.find = null
       }
+      this.getCards();
     },
     getCards() {
       const url = store.apiUrl + store.endPoint;
